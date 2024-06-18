@@ -1,0 +1,105 @@
+#---------- Tzvi -- my Aliases
+#echo starting .aliasrc file
+
+alias al=alias
+alias pd=pushd
+alias pop=popd
+alias dirs='dirs -v'
+
+alias b="echo c | bochs -q"
+alias catn='cat -n'
+
+alias ..='cd ..'
+alias ...='cd ../../../'
+alias .4='cd ../../../../'
+
+red='\e[0;31m'
+NC='\e[0m' # No Color
+echored () { echo -e "${red}$@ ${NC}" ; }
+
+alias exp="explorer.exe ."
+
+alias g='grep --color'  # short for grep with coloring
+alias gn='g -n'         # prints the line number
+alias gi='g -i'         # case insensitive grep
+alias giv='g -iv'       # prints all lines except those with the pattern 
+alias gin='g -in'       # case insensitive + line number
+alias algi='alias | grep -i $1'
+alias gic2='gi -C 2'    # all these variants of gic - 
+                        # print not only the line matching the pattern
+						# but also a few lines before and after this line
+						# as set by the -C argument
+alias gic3='gi -C 3'
+alias gic4='gi -C 4'
+alias gic5='gi -C 5'
+alias gic=gic3
+
+#what is set - alias, function, variables etc
+alias setgi='set |gic $1'
+
+
+alias h='history $1'
+alias hgi='history | grep -i $1'
+
+alias j='jobs -l'
+
+alias l=less
+alias lN='less -N'
+alias m=less
+alias mn='m -N'
+alias hd=hexdump
+
+mkcd () { mkdir "$1"; cd "$1"; }
+
+alias s=source
+
+alias ls1='ls -1'
+alias ll='ls -alF'
+alias la='ls -A'
+alias llt='ls -lt'
+alias lltr='ls -ltr'
+alias l.='ls -d .* --color=auto'
+lsh () { ls -t "$@" | head ; } 
+llh () { ls -lt "$@" | head ; }
+lwc () { ls "$@" | wc -l; }
+
+alias diff="diff -w"
+alias mysdiff="sdiff -sbW"
+alias mysdiffi="sdiff -sbWi"
+alias diffdir="diff -r --brief"
+alias sl="sl -e"
+alias train="sl -e"
+
+alias pv=printenv
+alias pvgi='pv | grep -i --color $1'
+alias show_path='echo $PATH |sed s/:/\\n/g'
+
+alias ntp1='sudo service ntp stop'
+alias ntp2='sudo ntpdate -s time.nist.gov'
+alias ntp3='sudo service ntp start'
+alias timezone='sudo timedatectl set-timezone Asia/Jerusalem'
+
+findfile () { find .  -type f -iname "*$1*" -print ; }
+finddir () { find .  -type d -iname "*$1*" -print ; }
+findgrep () { find .  -type f -iname "*$1*"  -exec grep -iH "$2" {} \; ; }
+
+# simple compile of cpp file
+gpp () { echo "$@" ; g++ -Wall -std=c++14 "$@" -o ${1%.*} ; }
+gpp17 () { echo "$@" ; g++ -Wall -std=c++17  "$@" -o ${1%.*} ; }
+gccc () { echo "$@" ; gcc -Wall -std=c99 "$@" -o ${1%.*} ; }
+gccp () { echo "$@" ; gcc -Wall -pthread "$@" -o ${1%.*} ; }
+
+# the student should probably change the following aliases to match her pc
+note ()
+{ 
+  echo $1 ; 
+  if [ "$NOTE" ]
+  then
+    ${C}/Program\ Files\ \(x86\)/Notepad++/notepad++.exe $1 
+  else
+    NOTE=1 
+    ${C}/Program\ Files\ \(x86\)/Notepad++/notepad++.exe $1 &
+  fi
+}
+
+
